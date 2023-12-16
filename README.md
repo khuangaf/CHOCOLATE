@@ -135,3 +135,21 @@ binary_entail_prob_positive = torch.nn.functional.softmax(outputs['logits'].sque
 # binary_entail_prob_positive corresponds to the computed probability that the chart entails the caption sentence.
 
 ```
+
+## Citation
+```
+@misc{huang-etal-2023-do,
+    title = "Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning",
+    author = "Huang, Kung-Hsiang  and
+      Zhou, Mingyang and
+      Chan, Hou Pong  and
+      Fung, Yi R. and
+      Wang, Zhenhailong and
+      Zhang, Lingyu and
+      Chang, Shih-Fu and
+      Ji, Heng",
+    year={2023},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+```
+}
