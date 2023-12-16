@@ -1,8 +1,8 @@
 # Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning 
 
 <div align="center">
-Kung-Hsiang Huang† Mingyang Zhou* Hou Pong Chan‡
-Yi R. Fung† Zhenhailong Wang† Lingyu Zhang* Shih-Fu Chang* Heng Ji†
+Kung-Hsiang Huang†, Mingyang Zhou*, Hou Pong Chan‡,
+Yi R. Fung†, Zhenhailong Wang†, Lingyu Zhang*, Shih-Fu Chang*, Heng Ji†
 
 </div>
 <div align="center">
@@ -10,6 +10,10 @@ Yi R. Fung† Zhenhailong Wang† Lingyu Zhang* Shih-Fu Chang* Heng Ji†
 
 <strong>Columbia University*</strong>
 <strong>University of Macau‡</strong>
+</div>
+
+<div align="center">
+<hr>
 </div>
 
 This repository holds the CHOCOLATE Benchmark dataset, which is used for assessing the factuality of chart captioning systems. The dataset includes results from 6 different models applied to two distinct datasets. These includes:
@@ -24,6 +28,7 @@ Results are shown in the below figure and table. We found that all captioning mo
 
 <img src="./error_distribution.png"  class="center">
 
+<div align="center">
 <table>
   <tr>
     <th style="font-weight: bold;"></th>
@@ -59,6 +64,7 @@ Results are shown in the below figure and table. We found that all captioning mo
     <td>484</td>
   </tr>
 </table>
+</div>
 
 
 ## Spotlights
@@ -67,9 +73,9 @@ Results are shown in the below figure and table. We found that all captioning mo
 * CHOCOLATE is used to establish the Chart Caption Factual Error Correction task.
 * Comming soon
     - [x] The CHOCOLATE benchmark
-    - [ ] ChartVE model
+    - [ ] ChartVE metric
     - [ ] C2T model
-    - [ ] Evaluation script
+    - [ ] Evaluation scripts
           
 
 ## The CHOCOLATE Benchmark 
