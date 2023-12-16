@@ -69,8 +69,8 @@ Results are shown in the below figure and table. We found that all captioning mo
 
 ## Spotlights
 
-* CHOCOLATE - The first chart caption factuality benchmark for  
-* CHOCOLATE is used to establish the Chart Caption Factual Error Correction task.
+* CHOCOLATE - The first factuality benchmark for chart captioning.
+* CHOCOLATE is also used to establish the Chart Caption Factual Error Correction task.
 * Comming soon
     - [x] The CHOCOLATE benchmark
     - [x] The ChartVE metric ([khhuang/chartve](https://huggingface.co/khhuang/chartve))
