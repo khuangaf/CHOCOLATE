@@ -73,8 +73,8 @@ Results are shown in the below figure and table. We found that all captioning mo
 * CHOCOLATE is used to establish the Chart Caption Factual Error Correction task.
 * Comming soon
     - [x] The CHOCOLATE benchmark
-    - [ ] ChartVE metric
-    - [ ] C2T model
+    - [x] The ChartVE metric ([khhuang/chartve](https://huggingface.co/khhuang/chartve))
+    - [ ] The C2T model
     - [ ] Evaluation scripts
           
 
@@ -93,4 +93,45 @@ Each instance in the json file corresponds to an annotation for a generated capt
 * **image_path**: An URL to the chart image.
 * **_id**: A unique identifier for this instance.
 
+## ChartVE
 
+
+ChartVE is a visual entailment model for evaluating the factuality of a generated caption sentence with regard to the input chart. The model takes in a chart figure and a caption sentence as input, and outputs an entailment probability. The underlying architecture of this model is UniChart.
+
+Note that this model expects a caption sentence as textual inputs. For captions that are longer than one sentences, one should split the caption into multiple sentences, feed individual sentences to ChartVE, and then aggregate the scores. Below, we provide an example of how to use ChartVE.
+
+```python
+from transformers import DonutProcessor, VisionEncoderDecoderModel
+from PIL import Image
+
+model_name = "khhuang/chartve"
+model = VisionEncoderDecoderModel.from_pretrained(model_name).cuda()
+processor = DonutProcessor.from_pretrained(model_name)
+
+image_path = "PATH_TO_IMAGE"
+
+def format_query(sentence):
+    return f"Does the image entails this statement: \"{sentence}\"?"
+
+# Format text inputs
+CAPTION_SENTENCE = "The state that has the highest number of population is California."
+query = format_query(CAPTION_SENTENCE)
+
+# Encode chart figure and tokenize text
+img = Image.open(IMAGE_PATH)
+pixel_values = processor(img.convert("RGB"), random_padding=False, return_tensors="pt").pixel_values
+pixel_values = pixel_values.cuda()
+decoder_input_ids = processor.tokenizer(query, add_special_tokens=False, return_tensors="pt", max_length=510).input_ids.cuda()#.squeeze(0)
+
+
+outputs = model(pixel_values, decoder_input_ids=decoder_input_ids)
+
+# positive_logit = outputs['logits'].squeeze()[-1,49922]
+# negative_logit = outputs['logits'].squeeze()[-1,2334] 
+
+# Probe the probability of generating "yes"
+binary_entail_prob_positive = torch.nn.functional.softmax(outputs['logits'].squeeze()[-1,[2334, 49922]])[1].item()
+
+# binary_entail_prob_positive corresponds to the computed probability that the chart entails the caption sentence.
+
+```
