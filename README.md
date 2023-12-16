@@ -16,7 +16,7 @@ Yi R. Fung†, Zhenhailong Wang†, Lingyu Zhang*, Shih-Fu Chang*, Heng Ji†
 <hr>
 </div>
 
-This repository holds the CHOCOLATE benchmark, which is used for assessing the factuality of chart captioning systems. The dataset includes results from 6 different models applied to two distinct datasets. These includes:
+This repository holds the CHOCOLATE benchmark, which is used for assessing the factuality of chart captioning systems. The dataset includes an error analysis for six different models on two distinct datasets. These includes:
 
 * LVLM: GPT-4V, Bard (before Gemini)
 * LLM-based Pipeline: DePlot + GPT-4
