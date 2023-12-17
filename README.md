@@ -152,5 +152,6 @@ binary_entail_prob_positive = torch.nn.functional.softmax(outputs['logits'].sque
     year={2023},
     archivePrefix={arXiv},
     primaryClass={cs.CL}
+}    
 ```
-}
+
