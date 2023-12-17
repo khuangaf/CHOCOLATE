@@ -74,7 +74,8 @@ Results are shown in the below figure and table. We found that all captioning mo
 * Comming soon
     - [x] The CHOCOLATE benchmark
     - [x] The ChartVE metric ([khhuang/chartve](https://huggingface.co/khhuang/chartve))
-    - [ ] The C2T model
+    - [x] The Chart-To-Table model ([khhuang/chart-to-table](https://huggingface.co/khhuang/chart-to-table))
+    - [ ] Scripts for table-based error correction 
     - [ ] Evaluation scripts
           
 
