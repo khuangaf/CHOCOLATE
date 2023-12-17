@@ -1,7 +1,7 @@
 # Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning 
 
 <div align="center">
-Kung-Hsiang Huang†, Mingyang Zhou*, Hou Pong Chan‡,
+<a href="https://khuangaf.github.io/">Kung-Hsiang Huang</a>†, Mingyang Zhou*, Hou Pong Chan‡,
 Yi R. Fung†, Zhenhailong Wang†, Lingyu Zhang*, Shih-Fu Chang*, Heng Ji†
 
 </div>
