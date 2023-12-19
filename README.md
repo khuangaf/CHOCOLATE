@@ -14,7 +14,11 @@ Yi R. Fung†, Zhenhailong Wang†, Lingyu Zhang*, Shih-Fu Chang*, Heng Ji†
 
 <div align="center">
 <hr>
+
+[![arXiv](https://img.shields.io/badge/arXiv-2312.10160-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2312.10160)
+
 </div>
+
 
 This repository holds the CHOCOLATE benchmark, which is used for assessing the factuality of chart captioning systems. The dataset includes an error analysis for six different models on two distinct datasets. These includes:
 
@@ -137,6 +141,8 @@ binary_entail_prob_positive = torch.nn.functional.softmax(outputs['logits'].sque
 
 ```
 
+The meta-evaluation scripts can be found in [ChartVE Meta-evaluation.ipynb](https://github.com/khuangaf/CHOCOLATE/blob/master/ChartVE%20Meta-evaluation.ipynb).
+
 ## C2TFEC
 
 The proposed C2TFEC framework consists of two components: chart-to-table conversion and table-based error rectification.
@@ -205,6 +211,7 @@ extracted_table = sequence.split("<s_answer>")[1].strip()
       Chang, Shih-Fu and
       Ji, Heng",
     year={2023},
+    eprint={2312.10160},
     archivePrefix={arXiv},
     primaryClass={cs.CL}
 }    
