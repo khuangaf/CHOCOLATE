@@ -199,7 +199,7 @@ extracted_table = sequence.split("<s_answer>")[1].strip()
 
 
 ## Citation
-```
+```bibtex
 @misc{huang-etal-2023-do,
     title = "Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning",
     author = "Huang, Kung-Hsiang  and
