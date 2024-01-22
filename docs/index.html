@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Analyzing and Correcting Factual Errors in Chart Captioning">
+  <meta name="keywords" content="CHOCOLATE, Chocolate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning
+</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link rel="icon" href="./static/images/chocolate.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+
+</head>
+<body>
+
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="mathvista" style="vertical-align: middle">Do LVLMs Understand Charts?</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Analyzing and Correcting Factual Errors in Chart Captioning
+            <!-- <br> -->
+            <!-- with GPT-4V, Bard, and Other Large Multimodal Models -->
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://khuangaf.github.io/">Kung-Hsiang Huang</a><sup style="color:#6fbf73;">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=hIpaL2wAAAAJ&hl=en">Mingyang Zhou</a><sup style="color:#ed4b82;">2</sup>,</span>
+            <span class="author-block">
+              <a href="https://kenchan0226.github.io/">Hou Pong Chan</a><sup style="color:#ffac33;">3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yrf1.github.io/">Yi R. Fung</a><sup style="color:#6fbf73">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://mikewangwzhl.github.io/">Zhenhailong Wang</a><sup style="color:#6fbf73">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://lingyu98.github.io/">Lingyu Zhang</a><sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.ee.columbia.edu/~sfchang/">Shih-Fu Chang</a><sup style="color:#ed4b82">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://blender.cs.illinois.edu/hengji.html">Heng Ji</a><sup style="color:#6fbf73;">1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#6fbf73;">1</sup>University of Illinois Urbana-Champaign</span><br>
+            <span class="author-block"><sup style="color:#ed4b82">2</sup>Columbia University</span>
+            <span class="author-block"><sup style="color:#ffac33">3</sup>University of Macau</span><br>
+          </div>
+        
+          <!-- <section> -->
+            <!-- <div class="section" id="org-banners" style="display:fle">
+              <a href="https://www.ucla.edu/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/ucla.png" style="height:3em">
+              </a>
+              <a href="https://www.washington.edu/" target="blank" class="ext-link">
+                  <img class="center-block org-banner" src="static/images/uw.png" style="height:3em">
+              </a>
+              <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/microsoft.png" style="height:3em">
+              </a>
+            </div> -->
+          <!-- </section> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://arxiv.org/abs/2312.10160"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2312.10160"
+                   class="external-link button is-normal is-rounded is-dark">
+                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/khuangaf/CHOCOLATE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/khhuang/CHOCOLATE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="fab fa-github"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <!-- Visualization Link. -->
+              <!-- <span class="link-block">
+                <a href="https://mathvista.github.io/#visualization"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🔮</p>
+                  </span>
+                  <span>Visualize</span>
+                </a>
+              </span> -->
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://twitter.com/steeve__huang/status/1736936683826753685"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- 💻🔗 -->
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <img src="static/images/tease_scores_gpt4v.png" alt="geometric reasoning" width="99%"/>
+      <p> Accuracy scores of one leading LLM (i.e., PoT GPT-4), four primary LMMs, random chance, and human performance our proposed 
+      <img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+      <span class="mathvista">MathVista</span>
+      across mathematical reasoning and visual context types. PoT refers to program-of-thought prompting, and PoT GPT-4 is a textual LLM augmented with the caption and OCR text. GPT-4V is manually evaluated via the playground chatbot.
+      </p>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/error_distribution_v2.png" alt="error distribution" width="84%"/>
+              <p> Error distribution for different models on the VisText and Pew subset of the proposed 
+                <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+                <span class="mathvista">Chocolate</span>
+                dataset. The error rates are computed per sentence. An error rate of 0.4 indicates that 40% of the sentences in the generated captions contain such an error. Note that a single caption may contain multiple types of errors; hence, the maximum value for a stacked bar is greater than 1.0. We show that even the most advanced LVLM, GPT-4V, generates captions with a high rate of factual error.
+              
+              </p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/value_labeling_impact.png" alt="geometric reasoning" width="84%"/>
+              <p> <b>GPT-4V often cannot understand charts without value labeling</b> (i.e. cannot align datapoints to axes). We prompted GPT-4V to generate captions of two charts we created using the Seaborn library based on an underlying table sampled from the Chart-to-Text dataset, with or without labeling the values of the bars on the chart. We see that when the labeled values are absent from the chart, GPT-4V is more prone to produce less factual captions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Recent advancements in <b>Large Vision-language Models (LVLMs)</b> have led to significant progress in generating natural language descriptions for visual content and thus enhancing various applications. One issue with these powerful models is that they sometimes produce texts that are factually inconsistent with the visual input. While there has been some effort to mitigate such inconsistencies in natural image captioning, the factuality of generated captions for structured document images, such as charts, has not received as much scrutiny, posing a potential threat to information reliability in critical applications. 
+          </p>
+          <p>
+            This work delves into the <b><i>factuality</i></b> aspect by introducing a comprehensive typology of factual errors in generated chart captions. A large-scale human annotation effort provides insight into the error patterns and frequencies in captions crafted by various chart captioning models, ultimately forming the foundation of a novel dataset, 
+            <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="mathvista">Chocolate</span>. The <span class="mathvista">Chocolate</span> dataset is split into three subsets based on the model that produces the caption: <span class="mathvista">Lvlm</span> (Large Vision-Language Model), <span class="mathvista">Llm</span> (Large Language Model), and <span class="mathvista">Ft</span> (Fine-tuned Model).
+          </p>
+          <p>
+            Our analysis reveals that even state-of-the-art models, including GPT-4V, frequently produce captions laced with factual inaccuracies. In response to this challenge, we establish the new task of <b>Chart Caption Factual Error Correction</b> and introduce 
+            <span class="mathvista">ChartVE</span>, a model for visual entailment that outperforms proprietary and open-source LVLMs in evaluating factual consistency. Furthermore, we propose <span class="mathvista">C2TFec</span>, an interpretable two-stage framework that excels at correcting factual errors. This work inaugurates a new domain in factual error correction for chart captions, presenting a novel evaluation mechanism, and demonstrating an effective approach to ensuring the factuality of generated chart captions.
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="leaderboard">Leaderboard on Captioning Factual Inconsistency Detection</h2>
+        <div class="content">
+          <p class="mt-3">Kendall's Tau on the 
+            <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="mathvista">Chocolate</span> dataset.
+          </p>
+
+          
+
+          <table class="js-sort-table" id="results">
+            <tr>
+                <td class="js-sort-number"><strong>#</strong></td>
+                <td class="js-sort-number"><strong>Model</strong></td>
+                <td class="js-sort-number"><strong>Method</strong></td>
+                <td class="js-sort-number"><strong>Source</strong></td>
+                <td class="js-sort-number"><strong><span class="mathvista">Chocolate-Lvlm</span></strong></td>
+                <td class="js-sort-number"><strong><span class="mathvista">Chocolate-Llm</span></strong></td>
+                <td class="js-sort-number"><strong><span class="mathvista">Chocolate-Ft</span></strong></td>
+                
+            </tr>
+            
+
+            <tr>
+              <td>1</td>
+              <td><b>SummaC</b></td>
+              <td><b>Reference-based Text-only</b></td>
+              <td><a href="https://aclanthology.org/2022.tacl-1.10" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>-0.011</td>
+              <td>0.023</td>
+              <td>0.036</td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td><b>QAFactEval</b></td>
+              <td><b>Reference-based Text-only</b></td>
+              <td><a href="https://aclanthology.org/2022.naacl-main.187" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>0.064</td>
+              <td>0.045</td>
+              <td>0.054</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td><b>LLaVA-1.5-13B</b></td>
+              <td><b>Large Vision-language Model</b></td>
+              <td><a href="https://llava-vl.github.io/" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>0.002</td>
+              <td>0.023</td>
+              <td>0.036</td>
+            </tr>
+
+            <tr>
+              <td>2</td>
+              <td><b>Bard</b></td>
+              <td><b>Reference-based Text-only</b></td>
+              <td><a href="https://bard.google.com/" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>-0.014</td>
+              <td>0.105</td>
+              <td><b class="best-score-text">0.291</b></td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td><b>GPT-4V</b></td>
+              <td><b>Reference-based Text-only</b></td>
+              <td><a href="https://openai.com/research/gpt-4v-system-card" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>0.157</td>
+              <td><b class="best-score-text">0.205</b></td>
+              <td>0.215</td>
+            </tr>
+
+        
+            <tr>
+              <td>4</td>
+              <td><b>DePlot + GPT-4</b></td>
+              <td><b>Tool-augmented Large Language Model</b></td>
+              <td><a href="https://aclanthology.org/2023.findings-acl.660/" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td>0.129</td>
+              <td>0.117</td>
+              <td>0.109</td>
+            </tr>
+
+            <tr>
+              <td>4</td>
+              <td><b class="best-score-text"><span class="mathvista">ChartVE</span></b></td>
+              <td><b>Small Vision-language Model</b></td>
+              <td><a href="https://aclanthology.org/2023.findings-acl.660/" class="ext-link" style="font-size: 16px;">Link</a></td>
+              <td><b class="best-score-text">0.178</b></td>
+              <td>0.091</td>
+              <td>0.215</td>
+            </tr>
+            
+
+            </table>
+        </div>
+    
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATASET SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <!-- <h1 class="title is-1 mathvista"><img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>MathVista Dataset</h1> -->
+  <h1 class="title is-1 mathvista">
+    <img src="static/images/chocolate.png" style="width:1em;vertical-align: middle" alt="Logo"/>
+    <span class="mathvista" style="vertical-align: middle">CHOCOLATE Dataset</span>
+  </h1>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p> -->
+            
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            
+            <span class="mathvista">CHOCOLATE</span> is a benchmark for detecting and correcting factual inconsistency in generated chart captions. It consists of captions produced by six most advanced models, which are categorized into three subsets:
+          <ul>
+            <li> <span class="mathvista">Lvlm</span>: GPT-4V, Bard (before Gemini)</li>
+            <li> <span class="mathvista">LLM</span>-based pipeline: DePlot + GPT-4 </li>
+            <li> <span class="mathvista">Ft</span>: ChartT5, MatCha, UniChart </li>
+          </ul>
+
+
+          The charts are from two datasets: VisText and the Pew split of Chart-to-Text. In total, <span class="mathvista">CHOCOLATE</span> consists of <b>1,187 examples</b>. Each instance in <span class="mathvista">CHOCOLATE</span> consists of a caption generated by one of the model
+          and the annotations of the factual errors for each caption sentence.
+            <!-- a compilation of data 1) carefully examined and filtered from 28 existing VQA and MathQA datasets and 2) manually collected by us. In total, 6,141 examples were collected from 31 different datasets. -->
+          </p>
+
+            You can download the dataset on <a href="https://huggingface.co/datasets/khhuang/CHOCOLATE" target="_blank">Hugging Face Dataset</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column" style="margin-right: 0rem;">
+        <div class="content has-text-centered">
+          <img src="static/images/statistics.png" alt="data-overview" style="max-width: 70%;"/>
+          <p> 
+            Key statistics of <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="mathvista">MathVista</span>.<br/>
+          </p> 
+        </div>
+      </div>
+     
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista">Experiment Results</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Results on Existing Foundation Models</h2>
+        <!-- <p>One example for each reasoning skill required in <span class="mathvista">MathVista</span></p> -->
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/human_eval.png" alt="grade-lv" width="80%"/>
+              <p>Human evaluation results on subsets of the <img src="static/images/chocolate.png" style="width:1.0em;vertical-align: middle" alt="Logo"/> 
+                <span class="mathvista">CHOCOLATE</span> dataset 
+                , comparing <span class="mathvista">C2TFec</span> and GPT-4V. <span class="mathvista">C2TFec</span> corrects significantly more errors compared to GPT-4V, especially Value, Label, and Trend Errors. .</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/qualitative_analysis.png" alt="grade-lv" width="70%"/>
+              <p>
+                An example showing how decomposing the visual reasoning process into image-to-structure rendering and text-based reasoning allows <span class="mathvista">C2TFec</span> to accurately rectify errors in chart captions. Texts marked in red indicate non-factual information units in the caption, whereas those marked in blue represent information units faithful to the chart. In this instance, <span class="mathvista">C2TFec</span> successfully corrects all Value and Label Errors presented in the original caption. Conversely, GPT-4V fails to identify the factual inconsistencies and merely reorders the entities in the caption.
+              </p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/gpt4v_extracted_table.png" alt="grade-lv" width="90%"/>
+              <p>An example showing GPT-4V cannot accurately extract tables from charts. This indicates its inability to infer the actual value of each data point within the chart.</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>@misc{huang-etal-2023-do,
+    title = "Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning",
+    author = "Huang, Kung-Hsiang  and
+      Zhou, Mingyang and
+      Chan, Hou Pong  and
+      Fung, Yi R. and
+      Wang, Zhenhailong and
+      Zhang, Lingyu and
+      Chang, Shih-Fu and
+      Ji, Heng",
+    year={2023},
+    eprint={2312.10160},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}    
+</code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://illinois.edu/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/uiuc.png">
+    </a>
+    <a href="https://www.columbia.edu/" target="blank" class="ext-link">
+        <img class="center-block org-banner" src="static/images/columbia.png">
+    </a>
+    <a href="https://www.um.edu.mo/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/mu.png">
+    </a>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://mathvista.github.io/">MathVista</a> and <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>

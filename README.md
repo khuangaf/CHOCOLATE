@@ -85,7 +85,7 @@ Results are shown in the below figure and table. We found that all captioning mo
 
 ## The CHOCOLATE Benchmark 
 
-We release the data for the CHOCOLATE benchmark at `data/chocolate.json`.
+We release the data for the CHOCOLATE benchmark at `data/chocolate.json`. CHOCOLATE is also available on [HuggingFace](https://huggingface.co/datasets/khhuang/CHOCOLATE)🤗. 
 
 ### Data Structure
 
