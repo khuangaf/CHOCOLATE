@@ -26,7 +26,7 @@ This repository holds the CHOCOLATE benchmark for assessing the factuality of ch
 * LLM-based Pipeline: DePlot + GPT-4
 * Fine-tuned Model: ChartT5, MatCha, UniChart
 
-Annotations are conducted on the VisText and Chart-to-Text (pew split) datasets. This ensures a wide range of data and types of factual errors.
+Annotations are conducted on the VisText and Chart-to-Text (pew split) datasets. This ensures a wide range of data and types of factual errors. For more information, please visit our [project page](https://khuangaf.github.io/CHOCOLATE).
 
 Results are shown in the below figure and table. We found that all captioning models often generate captions that are factually inconsistent with the input chart. In fact, even for highly capable **LVLMs, their non-factual rate is a whopping 81.27%**.
 
