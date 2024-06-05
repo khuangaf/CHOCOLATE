@@ -1,4 +1,4 @@
-# Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning 
+# [ACL 2024 Findings] Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning
 
 <div align="center">
 <a href="https://khuangaf.github.io/">Kung-Hsiang Huang</a>†, Mingyang Zhou*, Hou Pong Chan‡,
@@ -91,7 +91,7 @@ Results are shown in the below figure and table. We found that all captioning mo
     - [ ] Evaluation scripts
           
 
-## The CHOCOLATE Benchmark 
+## The CHOCOLATE Benchmark
 
 We release the data for the CHOCOLATE benchmark at `data/chocolate.json`. CHOCOLATE is also available on [HuggingFace](https://huggingface.co/datasets/khhuang/CHOCOLATE)🤗. 
 
@@ -155,7 +155,7 @@ The meta-evaluation scripts can be found in [ChartVE Meta-evaluation.ipynb](http
 
 The proposed C2TFEC framework consists of two components: chart-to-table conversion and table-based error rectification.
 
-### Chart-To-Table 
+### Chart-To-Table
 
 The Chart-To-Table model ([khhuang/chart-to-table](https://huggingface.co/khhuang/chart-to-table)) is trained to convert a chart into a structured table. The generated tables use &&& to delimit rows and | to delimit columns. The underlying architecture of this model is UniChart. Below, we provide an example of how to use our Chart-To-Table model.
 
@@ -208,7 +208,7 @@ extracted_table = sequence.split("<s_answer>")[1].strip()
 
 ## Citation
 ```bibtex
-@misc{huang-etal-2023-do,
+@inproceedings{huang-etal-2024-lvlms,
     title = "Do LVLMs Understand Charts? Analyzing and Correcting Factual Errors in Chart Captioning",
     author = "Huang, Kung-Hsiang  and
       Zhou, Mingyang and
@@ -218,10 +218,13 @@ extracted_table = sequence.split("<s_answer>")[1].strip()
       Zhang, Lingyu and
       Chang, Shih-Fu and
       Ji, Heng",
-    year={2023},
-    eprint={2312.10160},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL}
+    booktitle = "Findings of the Association for Computational Linguistics: ACL 2024",
+    month = aug,
+    year = "2024",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.findings-acl.85",
+    doi = "10.18653/v1/2023.findings-acl.85",
+    pages = "1314--1326",
 }    
 ```
 
